@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_tracker/data/adapter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'home_page.dart';
 
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(PrioritiesAdapter());
 
   await Hive.openBox("Habit_Database");
   runApp(const MyApp());
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Habit Tracker',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        useMaterial3: true,
+        primarySwatch: Colors.grey,
       ),
       home: const HomePage(),
     );

@@ -5,15 +5,20 @@ import '../datetime/date_time.dart';
 // reference our box
 final _myBox = Hive.box("Habit_Database");
 
+enum Priorities {
+  Urgent,
+  Important,
+  Normal,
+}
+
 class HabitDatabase {
-  List todaysHabitList = [];
+  List todaysHabitList = ["Run", "Description", Priorities.Normal, false];
   Map<DateTime, int> heatMapDataSet = {};
 
   // create initial default data
   void createDefaultData() {
     todaysHabitList = [
-      ["Run", false],
-      ["Read", false],
+      ["Run", "Description", Priorities.Normal, false],
     ];
 
     _myBox.put("START_DATE", todaysDateFormatted());
@@ -26,7 +31,7 @@ class HabitDatabase {
       todaysHabitList = _myBox.get("CURRENT_HABIT_LIST");
       // set all habit completed to false since it's a new day
       for (int i = 0; i < todaysHabitList.length; i++) {
-        todaysHabitList[i][1] = false;
+        todaysHabitList[i][3] = false;
       }
     }
     // if it's not a new day, load todays list
@@ -53,7 +58,7 @@ class HabitDatabase {
   void calculateHabitPercentages() {
     int countCompleted = 0;
     for (int i = 0; i < todaysHabitList.length; i++) {
-      if (todaysHabitList[i][1] == true) {
+      if (todaysHabitList[i][3] == true) {
         countCompleted++;
       }
     }
