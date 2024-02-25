@@ -90,7 +90,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       db.todaysHabitList[index][0] = _newTaskController.text;
       db.todaysHabitList[index][1] = _newDescirptionController.text;
-      
 
       db.updateDatabase();
     });
@@ -101,6 +100,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void openHabitSettings(int index) {
+    _newTaskController.text = db.todaysHabitList[index][0];
+    _newDescirptionController.text = db.todaysHabitList[index][1];
+
     showDialog(
         context: context,
         builder: (context) {
